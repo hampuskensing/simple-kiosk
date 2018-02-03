@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -22,8 +22,9 @@ export class KioskService {
 
   public getAds(): Observable<Ad[]> {
     console.info('fetching all ads from backend');
-    return this.http.get('api/ads').map((response: HttpResponse<Ad[]>) => {
-      return response.body;
+    return this.http.get('api/ads').map((ads: Ad[]) => {
+      console.log('get ads response', ads);
+      return ads;
     });
   }
 
@@ -34,8 +35,8 @@ export class KioskService {
   }
 
   public getLinks(): Observable<Link[]> {
-    return this.http.get('api/links').map((response: HttpResponse<Link[]>) => {
-      return response.body;
+    return this.http.get('api/links').map((links: Link[]) => {
+      return links;
     });
   }
 

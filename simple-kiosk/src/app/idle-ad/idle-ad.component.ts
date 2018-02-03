@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Ad, KioskService } from '../services/kiosk.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-idle-ad',
@@ -10,15 +11,15 @@ import { Ad, KioskService } from '../services/kiosk.service';
 })
 export class IdleAdComponent implements OnInit {
 
-  ad: Ad;
+  ad$: Observable<Ad>;
 
   constructor(private route: ActivatedRoute, private kioskService: KioskService) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: ParamMap) => {
-        const id = params.get('id');
+    this.ad$ = this.route.params.switchMap((params) => {
+        const id = params.id;
         console.info('get ad', id)
-        this.kioskService.getAd(id).subscribe(ad => this.ad = ad);
+        return this.kioskService.getAd(id);
       });
   }
 

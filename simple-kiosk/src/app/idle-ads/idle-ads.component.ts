@@ -15,8 +15,7 @@ export class IdleAdsComponent implements OnInit {
     this.kioskService.getAds().subscribe((ads: Ad[]) => {
       const id = ads[0].id || 'no-ad-found';
       this.router.navigate([
-        'idle-ad', { id: id }
-      ]);
+        '/idle-ads', id]);
     });
   }
 
