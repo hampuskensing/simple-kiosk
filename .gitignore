@@ -1,1 +1,33 @@
 # Created by .ignore support plugin (hsz.mobi)
+# IDEs and editors
+.idea
+
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+simple-kiosk/dist
+simple-kiosk/dist-server
+simple-kiosk/tmp
+simple-kiosk/out-tsc
+
+# dependencies
+simple-kiosk/node_modules
+
+# misc
+simple-kiosk/.sass-cache
+simple-kiosk/connect.lock
+simple-kiosk/coverage
+simple-kiosk/libpeerconnection.log
+simple-kiosk/npm-debug.log
+simple-kiosk/testem.log
+simple-kiosk/typings
+
+# e2e
+simple-kiosk/e2e/*.js
+simple-kiosk/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+
