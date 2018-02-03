@@ -13,6 +13,7 @@ simple-kiosk/out-tsc
 
 # dependencies
 simple-kiosk/node_modules
+express-backend/node_modules
 
 # misc
 simple-kiosk/.sass-cache
