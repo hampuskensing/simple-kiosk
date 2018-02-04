@@ -22,8 +22,8 @@ module.exports = class LinkService {
     });
   }
 
-  deleteLink(link, callback) {
-    this.database.delete('links', link.id, (err, links) => {
+  deleteLink(id, callback) {
+    this.database.delete('links', id, (err, links) => {
       callback(null, links);
     });
   }

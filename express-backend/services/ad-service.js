@@ -22,8 +22,8 @@ module.exports = class AdService {
     });
   }
 
-  deleteAd(ad, callback) {
-    this.database.delete('ads', ad.id, (err, ads) => {
+  deleteAd(id, callback) {
+    this.database.delete('ads', id, (err, ads) => {
       callback(null, ads);
     });
   }

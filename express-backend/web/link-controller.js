@@ -28,7 +28,7 @@ module.exports = class LinkController {
       });
     });
 
-    this.app.put('/api/links', (req, res) => {
+    this.app.put('/api/links/:id', (req, res) => {
       const link = req.body;
       this.linkService.updateLink(link, (err, links) => {
         if (err) {
@@ -40,7 +40,7 @@ module.exports = class LinkController {
     });
 
     this.app.delete('/api/links/:id', (req, res) => {
-      const id = req.param.id;
+      const id = req.params.id;
       this.linkService.deleteLink(id, (err, links) => {
         if (err) {
           res.status(500).send('unable to delete link');

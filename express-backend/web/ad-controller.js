@@ -29,7 +29,7 @@ module.exports = class AdController {
       });
     });
 
-    this.app.put('/api/ads', (req, res) => {
+    this.app.put('/api/ads/:id', (req, res) => {
       const ad = req.body;
       this.adService.updateAd(ad, (err, ads) => {
         if (err) {
@@ -41,7 +41,7 @@ module.exports = class AdController {
     });
 
     this.app.delete('/api/ads/:id', (req, res) => {
-      const id = req.param.id;
+      const id = req.params.id;
       this.adService.deleteAd(id, (err, ads) => {
         if (err) {
           res.status(500).send('unable to delete ad');
