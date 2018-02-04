@@ -1,41 +1,23 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-const ads = [
-  {
-    id: 'brodrost',
-    imageUrl: '/images/test.jpg'
-  },{
-    id: 'kaffebryggare',
-    imageUrl: '/images/test.jpg'
-  },{
-    id: 'kylskap',
-    imageUrl: '/images/test.jpg'
-  },{
-    id: 'stekhall',
-    imageUrl: '/images/test.jpg'
-  }];
+const Database = require('./database/database');
+const AdService = require('./services/ad-service');
+const LinkService = require('./services/link-service');
+const AdController = require('./web/ad-controller');
+const LinkController = require('./web/link-controller');
 
-const links = [
-  {
-    id: 'google',
-    name: 'Google',
-    link: 'www.google.se',
-    imageUrl: '/images/test.jpg'
-  },{
-    id: 'massdrop',
-    name: 'Massdrop',
-    link: 'www.massdrop.com',
-    imageUrl: '/images/test.jpg'
-  },{
-    id: 'engadget',
-    name: 'Engadget',
-    link: 'www.engadget.com',
-    imageUrl: '/images/test.jpg'
-  }
-];
+const database = new Database(false);
+const adService = new AdService(database);
+const linkService = new LinkService(database);
+const adController = new AdController(app, adService);
+const linkController = new LinkController(app, linkService);
 
-app.get('/api/ads', (req, res) => res.send(JSON.stringify(ads)));
-app.get('/api/links', (req, res) => res.send(JSON.stringify(links)));
+database.init();
+adController.init();
+linkController.init();
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+app.listen(3000, () => console.log('Kiosk backend app is listening on port 3000!'));
