@@ -39,7 +39,6 @@ export class SystemAdminComponent implements OnInit {
   onSubmitAd() {
     const value = this.adForm.value;
     const ad = {
-      id: this.idify(value.name),
       name: value.name,
       imageUrl: ''
     };
@@ -52,7 +51,6 @@ export class SystemAdminComponent implements OnInit {
   onSubmitLink() {
     const value = this.linkForm.value;
     const link = {
-      id: this.idify(value.name),
       name: value.name,
       linkUrl: value.linkUrl,
       imageUrl: ''
@@ -75,11 +73,4 @@ export class SystemAdminComponent implements OnInit {
     });
   }
 
-  private idify(str: string): string {
-    return str.toLowerCase()
-      .replace(/ /g, '')
-      .replace(/å/g, 'a')
-      .replace(/ä/g, 'a')
-      .replace(/ö/g, 'o');
-  }
 }

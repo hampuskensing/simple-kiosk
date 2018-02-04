@@ -7,11 +7,13 @@ module.exports = class Database {
     this.tables = {
       ads: {
         FILE_NAME: 'database/ads.json',
-        cache: []
+        cache: [],
+        idCounter: null
       },
       links: {
         FILE_NAME: 'database/links.json',
-        cache: []
+        cache: [],
+        idCounter: null
       }
     };
   }
@@ -22,7 +24,8 @@ module.exports = class Database {
     Object.keys(this.tables).forEach((tableName) => {
       const table = this.tables[tableName];
       this.readJsonFile(table.FILE_NAME, (contents) => {
-        table.cache = contents;
+        table.cache = contents.data;
+        table.idCounter = contents.idCounter;
       });
     });
   }
@@ -33,6 +36,7 @@ module.exports = class Database {
 
   post(tableName, entity, callback) {
     const table = this.tables[tableName];
+    entity.id = table.idCounter++;
     table.cache.push(entity);
     callback(null, table.cache);
     this.persist(tableName);
@@ -57,7 +61,7 @@ module.exports = class Database {
     const table = this.tables[tableName];
     if (!this.devMode) {
       console.log('persist ' + tableName + ' table.');
-      this.writeJsonFile(table.FILE_NAME, table.cache);
+      this.writeJsonFile(table.FILE_NAME, { cache: table.cache, idCounter: table.idCounter });
     } else {
       console.log('Skip persist ' + tableName + ' table because dev mode.');
     }
