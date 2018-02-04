@@ -7,6 +7,8 @@ import { IdleAdsComponent } from './idle-ads/idle-ads.component';
 import { IdleAdComponent } from './idle-ad/idle-ad.component';
 import { KioskService } from './services/kiosk.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SystemAdminComponent } from './system-admin/system-admin.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes = [
   { path: '',
@@ -16,6 +18,7 @@ const appRoutes = [
   { path: 'link-list', component: LinkListComponent },
   { path: 'idle-ads', component: IdleAdsComponent },
   { path: 'idle-ads/:id', component: IdleAdComponent },
+  { path: 'system-admin', component: SystemAdminComponent }
 ];
 
 @NgModule({
@@ -23,9 +26,12 @@ const appRoutes = [
     AppComponent,
     LinkListComponent,
     IdleAdsComponent,
-    IdleAdComponent
+    IdleAdComponent,
+    SystemAdminComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(

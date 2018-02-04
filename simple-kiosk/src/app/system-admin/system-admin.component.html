@@ -1,0 +1,51 @@
+<h2>System Admin</h2>
+<h3>Ads</h3>
+<div *ngFor="let ad of ads">
+  <div>{{ad.id}}</div>
+  <div>{{ad.name}}</div>
+  <button (click)="removeAd(ad)">remove ad</button>
+  <hr />
+</div>
+<form [formGroup]="adForm" (submit)="onSubmitAd()" >
+  <div>
+    <label>Name:
+      <input type="text" formControlName="name">
+    </label>
+  </div>
+  <div>
+    <label>Image:
+      <input type="file" formControlName="image">
+    </label>
+  </div>
+  <div>
+    <button [disabled]="adForm.invalid" type="submit">Create</button>
+  </div>
+</form>
+<h3>Links</h3>
+<div *ngFor="let link of links">
+  <div>{{link.id}}</div>
+  <div>{{link.name}}</div>
+  <div>{{link.linkUrl}}</div>
+  <button (click)="removeLink(link)">remove link</button>
+  <hr />
+</div>
+<form [formGroup]="linkForm" (submit)="onSubmitLink()">
+  <div>
+    <label>Name:
+      <input type="text" formControlName="name">
+    </label>
+  </div>
+  <div>
+    <label>Link:
+      <input type="text" formControlName="linkUrl">
+    </label>
+  </div>
+  <div>
+    <label>Image:
+      <input type="file" formControlName="image">
+    </label>
+  </div>
+  <div>
+    <button [disabled]="linkForm.invalid" type="submit">Create</button>
+  </div>
+</form>
