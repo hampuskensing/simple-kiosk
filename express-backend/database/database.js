@@ -36,7 +36,7 @@ module.exports = class Database {
 
   post(tableName, entity, callback) {
     const table = this.tables[tableName];
-    entity.id = table.idCounter++;
+    entity.id = tableName + table.idCounter++;
     table.data.push(entity);
     callback(null, table.data);
     this.persist(tableName);
