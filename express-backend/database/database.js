@@ -7,12 +7,12 @@ module.exports = class Database {
     this.tables = {
       ads: {
         FILE_NAME: 'database/ads.json',
-        cache: [],
+        data: [],
         idCounter: null
       },
       links: {
         FILE_NAME: 'database/links.json',
-        cache: [],
+        data: [],
         idCounter: null
       }
     };
@@ -24,36 +24,36 @@ module.exports = class Database {
     Object.keys(this.tables).forEach((tableName) => {
       const table = this.tables[tableName];
       this.readJsonFile(table.FILE_NAME, (contents) => {
-        table.cache = contents.data;
+        table.data = contents.data;
         table.idCounter = contents.idCounter;
       });
     });
   }
 
   get(tableName, callback) {
-    callback(null, this.tables[tableName].cache);
+    callback(null, this.tables[tableName].data);
   }
 
   post(tableName, entity, callback) {
     const table = this.tables[tableName];
     entity.id = table.idCounter++;
-    table.cache.push(entity);
-    callback(null, table.cache);
+    table.data.push(entity);
+    callback(null, table.data);
     this.persist(tableName);
   }
 
   put(tableName, entity, callback) {
     const table = this.tables[tableName];
-    table.cache = table.cache.filter(e => e.id !== entity.id);
-    table.cache.push(entity);
-    callback(null, table.cache);
+    table.data = table.data.filter(e => e.id !== entity.id);
+    table.data.push(entity);
+    callback(null, table.data);
     this.persist(tableName);
   }
 
   delete(tableName, entityId, callback) {
     const table = this.tables[tableName];
-    table.cache = table.cache.filter(entry => entry.id !== entityId);
-    callback(null, table.cache);
+    table.data = table.data.filter(entry => entry.id !== entityId);
+    callback(null, table.data);
     this.persist(tableName);
   }
 
@@ -61,7 +61,7 @@ module.exports = class Database {
     const table = this.tables[tableName];
     if (!this.devMode) {
       console.log('persist ' + tableName + ' table.');
-      this.writeJsonFile(table.FILE_NAME, { cache: table.cache, idCounter: table.idCounter });
+      this.writeJsonFile(table.FILE_NAME, { data: table.data, idCounter: table.idCounter });
     } else {
       console.log('Skip persist ' + tableName + ' table because dev mode.');
     }
